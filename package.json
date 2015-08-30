@@ -37,5 +37,9 @@
         "single"
       ]
     }
+  },
+  "dependencies": {
+    "bower": "^1.5.2",
+    "material-design-lite": "^1.0.4"
   }
 }

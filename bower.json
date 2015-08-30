@@ -3,6 +3,8 @@
   "private": true,
   "dependencies": {
     "bootstrap-sass": "~3.3.5",
+    "material-design-icons": "~2.0.0",
+    "material-design-lite": "~1.0.4",
     "modernizr": "~2.8.1"
   },
   "overrides": {
