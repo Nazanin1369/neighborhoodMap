@@ -4,9 +4,12 @@ import gulpLoadPlugins from 'gulp-load-plugins';
 import browserSync from 'browser-sync';
 import del from 'del';
 import {stream as wiredep} from 'wiredep';
+import babel from 'gulp-babel';
+import gulpSequence  from 'gulp-sequence';
 
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
+
 
 gulp.task('styles', () => {
   return gulp.src('app/styles/*.scss')
@@ -46,6 +49,7 @@ gulp.task('html', ['styles'], () => {
 
   return gulp.src('app/*.html')
     .pipe(assets)
+    .pipe($.if('*.js', babel()))
     .pipe($.if('*.js', $.uglify()))
     .pipe($.if('*.css', $.minifyCss({compatibility: '*'})))
     .pipe(assets.restore())
@@ -90,7 +94,7 @@ gulp.task('extras', () => {
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
 gulp.task('serve', ['styles', 'fonts'], () => {
-  browserSync({
+    browserSync({
     notify: false,
     port: 9000,
     server: {
@@ -120,6 +124,14 @@ gulp.task('serve:dist', () => {
     server: {
       baseDir: ['dist']
     }
+  });
+  gulp.watch([
+    'app/*.html',
+    'app/scripts/**/*.js',
+    'app/images/**/*',
+    '.tmp/fonts/**/*'
+  ]).on('change',  () => {
+    gulpSequence('build', reload);
   });
 });
 
@@ -156,7 +168,7 @@ gulp.task('wiredep', () => {
     .pipe(gulp.dest('app'));
 });
 
-gulp.task('build', ['lint', 'html', 'images', 'fonts', 'extras'], () => {
+gulp.task('build', ['html', 'images', 'fonts', 'extras'], () => {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 

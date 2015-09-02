@@ -2,18 +2,8 @@
   "name": "neighborhood-map",
   "private": true,
   "dependencies": {
-    "bootstrap-sass": "~3.3.5",
+    "knockout": "~3.3.0",
     "material-design-icons": "~2.0.0",
-    "material-design-lite": "~1.0.4",
-    "modernizr": "~2.8.1"
-  },
-  "overrides": {
-    "bootstrap-sass": {
-      "main": [
-        "assets/stylesheets/_bootstrap.scss",
-        "assets/fonts/bootstrap/*",
-        "assets/javascripts/bootstrap.js"
-      ]
-    }
+    "material-design-lite": "~1.0.4"
   }
 }

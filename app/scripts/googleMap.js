@@ -110,7 +110,7 @@ var googleMapService = new (function() {
     * @param  {DOMElement} mapCanvasId Canvas that will contain the map.
     */
    self.initializeMap = function(mapCanvasId) {
-       var usCenter = new google.maps.LatLng(40.77627, -73.910965);
+       var usCenter = new google.maps.LatLng(37.77627, -73.910965);
        var mapOptions = {
            center: usCenter,
            zoom: 4,
@@ -126,6 +126,27 @@ var googleMapService = new (function() {
 
        map = new google.maps.Map(document.getElementById('google-map'), mapOptions);
    };
+
+   /**
+   * @name getData
+   * @description get map locations data
+   * @return {Array|Object}
+   */
+   self.getData = function(){
+     var request = {
+          country: 'usa',
+          query: 'university'
+     };
+     return new Promise(function(resolve, reject){
+       function myCallBack(results, status) {
+           if (status === google.maps.places.PlacesServiceStatus.OK) {
+             resolve(results)
+           }
+           reject(status);
+       }
+       new google.maps.places.PlacesService(map).textSearch(request, myCallBack);
+      });
+   }
 
 
    /**
