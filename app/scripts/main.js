@@ -12,6 +12,7 @@ var University = (data) => {
   this.showInfoWindow = ()  => {
       alert("show me");
   };
+  
 };
 
 var dataMappingOptions = {
