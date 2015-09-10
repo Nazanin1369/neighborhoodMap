@@ -45,9 +45,9 @@ var googleMapService = new (function() {
      * It added a marker in the map.
      * @param  {Event} Event linked to the marker.
      */
-    self.createMarker = function(event) {
+    self.createMarker = function(university) {
         var marker = new google.maps.Marker({
-            position: new google.maps.LatLng(event.venue.location.latitude, event.venue.location.longitude),
+            position: new google.maps.LatLng(university.location.G, university.location.K),
             animation: google.maps.Animation.DROP
         });
 
@@ -55,7 +55,7 @@ var googleMapService = new (function() {
 
         google.maps.event.addListener(marker, 'click', function() {
             self.bounceOnce(this);
-            infoWindow.setContent(self.createInfoWindowContent(event));
+            infoWindow.setContent(self.createInfoWindowContent(university));
             infoWindow.open(map, this);
         });
 
@@ -110,10 +110,10 @@ var googleMapService = new (function() {
     * @param  {DOMElement} mapCanvasId Canvas that will contain the map.
     */
    self.initializeMap = function(mapCanvasId) {
-       var usCenter = new google.maps.LatLng(42.77627, -85.910965);
+       var sanFranciscoBayArea = new google.maps.LatLng(37.4292, -122.1381);
        var mapOptions = {
-           center: usCenter,
-           zoom: 4,
+           center: sanFranciscoBayArea,
+           zoom: 9,
            disableDefaultUI: true,
            styles: [{
                featureType: 'poi',
@@ -134,17 +134,19 @@ var googleMapService = new (function() {
    */
    self.getData = function(){
      var request = {
-          country: 'usa',
-          query: 'university'
+          location: {lat: 37.4292, lng: -122.1381},
+          radius: 40000,
+          types: ['university']
      };
      return new Promise(function(resolve, reject){
        function myCallBack(results, status) {
            if (status === google.maps.places.PlacesServiceStatus.OK) {
              resolve(results)
+             console.log('results', results)
            }
            reject(status);
        }
-       new google.maps.places.PlacesService(map).textSearch(request, myCallBack);
+       new google.maps.places.PlacesService(map).nearbySearch(request, myCallBack);
       });
    }
 

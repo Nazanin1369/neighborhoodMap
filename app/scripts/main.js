@@ -44,6 +44,9 @@ $(function() {
       console.log(data)
         viewModel.loadInitialData(data);
         console.log(viewModel)
+        for(var i = 0; i < data.length; i++){
+          googleMapService.createMarker(data[i].geometry);
+        }
     })
     .catch(function(reason){
         console.log(reason);
