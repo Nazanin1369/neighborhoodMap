@@ -43,6 +43,7 @@ $(function() {
     googleMapService.getData().then(function(data){
       console.log(data)
         viewModel.loadInitialData(data);
+        console.log(viewModel)
     })
     .catch(function(reason){
         console.log(reason);
