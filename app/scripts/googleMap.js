@@ -110,7 +110,7 @@ var googleMapService = new (function() {
     * @param  {DOMElement} mapCanvasId Canvas that will contain the map.
     */
    self.initializeMap = function(mapCanvasId) {
-       var usCenter = new google.maps.LatLng(37.77627, -73.910965);
+       var usCenter = new google.maps.LatLng(42.77627, -85.910965);
        var mapOptions = {
            center: usCenter,
            zoom: 4,
