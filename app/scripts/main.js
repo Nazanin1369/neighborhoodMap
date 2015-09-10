@@ -12,7 +12,7 @@ var University = (data) => {
   this.showInfoWindow = ()  => {
       alert("show me");
   };
-  
+
 };
 
 var dataMappingOptions = {
@@ -28,9 +28,9 @@ var dataMappingOptions = {
 * Application ViewModel.
 */
 var viewModel = {
-    universities: ko.mapping.fromJS([]),
+    universities: ko.viewmodel.fromModel([]),
     loadInitialData: function(data) {
-        ko.mapping.fromJS(data, dataMappingOptions, viewModel.universities);
+        ko.viewmodel.fromModel(data, dataMappingOptions, viewModel.universities);
     }
 };
 
@@ -38,10 +38,10 @@ var viewModel = {
 $(function() {
     'use strict';
 
-
     googleMapService.initializeMap();
 
     googleMapService.getData().then(function(data){
+      console.log(data)
         viewModel.loadInitialData(data);
     })
     .catch(function(reason){
