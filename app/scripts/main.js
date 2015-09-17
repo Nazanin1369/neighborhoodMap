@@ -1,38 +1,5 @@
-
-
-var University = (data) => {
-  this.id = data.id;
-  this.name = ko.observable(data.name);
-  this.address = ko.observable(data.formatted_address);
-  this.location = ko.computed(function(){
-    return {lat: data.geometry.location.G, long: data.geometry.location.K};
-  }, this);
-  this.icon = ko.observable(data.icon);
-  this.website = ko.observable(data.website);
-  this.showInfoWindow = ()  => {
-      alert("show me");
-  };
-
-};
-
-var dataMappingOptions = {
-    key: function(data) {
-        return data.id;
-    },
-    create: function(options) {
-        return new University(options.data);
-    }
-};
-
-/**
-* Application ViewModel.
-*/
-var viewModel = {
-    universities: ko.viewmodel.fromModel([]),
-    loadInitialData: function(data) {
-        ko.viewmodel.fromModel(data, dataMappingOptions, viewModel.universities);
-    }
-};
+//View model
+var universities;
 
 // App initialization
 $(function() {
@@ -41,17 +8,23 @@ $(function() {
     googleMapService.initializeMap();
 
     googleMapService.getData().then(function(data){
-      console.log(data)
-        viewModel.loadInitialData(data);
-        console.log(viewModel)
+        console.log(data)
         for(var i = 0; i < data.length; i++){
-          googleMapService.createMarker(data[i].geometry);
+            data[i].location = {'lat': data[i].geometry.location.H, 'long': data[i].geometry.location.L};
         }
+        var universitiesModel = ko.viewmodel.fromModel(data);
+        universities =  ko.viewmodel.toModel(universitiesModel);
+        console.log('universities viewmodel: ', universities);
+
+
+        for(var i = 0; i < universities.length; i++){
+           //console.log(universities[i] )
+          googleMapService.createMarker(universities[i]);
+        }
+
+        ko.applyBindings(ko.viewmodel.toModel(universities));
     })
     .catch(function(reason){
         console.log(reason);
     });
-    ko.applyBindings(viewModel);
-
-
 });
