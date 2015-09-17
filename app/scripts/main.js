@@ -16,7 +16,6 @@ $(function() {
         universities =  ko.viewmodel.toModel(universitiesModel);
         console.log('universities viewmodel: ', universities);
 
-
         for(var i = 0; i < universities.length; i++){
            //console.log(universities[i] )
           googleMapService.createMarker(universities[i]);

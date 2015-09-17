@@ -47,7 +47,7 @@ var googleMapService = new (function() {
      */
     self.createMarker = function(university) {
         var marker = new google.maps.Marker({
-            position: new google.maps.LatLng(university.location.G, university.location.K),
+            position: new google.maps.LatLng(university.location.lat, university.location.long),
             animation: google.maps.Animation.DROP
         });
 
