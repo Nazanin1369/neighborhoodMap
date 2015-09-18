@@ -47,7 +47,7 @@ var googleMapService = new (function() {
      */
     self.createMarker = function(university) {
         var marker = new google.maps.Marker({
-            position: new google.maps.LatLng(university.location.lat, university.location.long),
+            position: new google.maps.LatLng(university.location.lat(), university.location.long()),
             animation: google.maps.Animation.DROP
         });
 
@@ -110,10 +110,10 @@ var googleMapService = new (function() {
     * @param  {DOMElement} mapCanvasId Canvas that will contain the map.
     */
    self.initializeMap = function(mapCanvasId) {
-       var sanFranciscoBayArea = new google.maps.LatLng(37.4292, -122.1381);
+       var sanFranciscoBayArea = new google.maps.LatLng(37.6292, -122.1381);
        var mapOptions = {
            center: sanFranciscoBayArea,
-           zoom: 9,
+           zoom: 10,
            disableDefaultUI: true,
            styles: [{
                featureType: 'poi',
