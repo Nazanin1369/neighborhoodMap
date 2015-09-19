@@ -62,6 +62,20 @@ var googleMapService = new (function() {
         return marker;
     };
 
+    self.openInfoWindow = function(university){
+      var marker = new google.maps.Marker({
+          position: new google.maps.LatLng(university.location.lat(), university.location.long()),
+          animation: google.maps.Animation.DROP
+      });
+      
+      marker.setMap(map);
+
+      self.bounceOnce(marker);
+      infoWindow.setContent(self.createInfoWindowContent(university));
+      infoWindow.open(map, marker);
+
+      return marker;
+    }
 
     /**
      * It fits the map bounds to the markers in the map.
@@ -193,6 +207,41 @@ var googleMapService = new (function() {
            });
        });
    };
+
+   self.createInfoWindowContent = function(university) {
+        var uniRating;
+        var content = `<div class="info-card-wide mdl-card mdl-shadow--2dp">
+                        <div class="mdl-card__title">
+                            <h2 class="mdl-card__title-text">@@name@@</h2>
+                        </div>
+                        <div class="mdl-card__supporting-text">
+                        <strong>Rating: @@uniRating@@</strong>
+                        <br/>
+                        <span>@@uniVicinity@@</span>
+                        <br/>
+                        <span></span>
+                        <br/>
+                        <span></span>
+                        <span class="pull-right"></span>
+                        </div>
+                        <div class="mdl-card__menu">
+                        <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" onclick="googleMapService.getInfoWindow().close()">
+                        <i class="material-icons">clear</i>
+                        </button>
+                        </div></div>`;
+
+        if(typeof university.rating == 'undefined'){
+            uniRating = 'no rating';
+        } else {
+            uniRating = university.rating();
+        }
+        content = content.replace('@@name@@', university.name());
+        content = content.replace('@@uniRating@@', uniRating);
+        content = content.replace('@@uniVicinity@@', university.vicinity());
+
+        return content;
+    };
+
 
 
 
