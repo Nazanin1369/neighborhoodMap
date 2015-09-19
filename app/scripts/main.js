@@ -2,6 +2,12 @@
 var model = {
     universities: []
 };
+/**
+* @name getInstaPics
+* @description make an API call to Instagram API to get pics by tags
+* @param count number of pictures to return
+* @param hashtag keyword to search pictures with
+*/
 function getInstaPics(count, hashtag) {
       var clientId = '85a5b3cd341344cebeea9a990a80b3ed';
 			return $.getJSON(`https://api.instagram.com/v1/tags/${hashtag}/media/recent?callback=?&client_id=${clientId}&count=${count}`);
@@ -19,7 +25,7 @@ $(function() {
             data[i].location = {'lat': data[i].geometry.location.H, 'long': data[i].geometry.location.L};
         }
         getInstaPics(10, 'standford').then(function(response){
-            console.log(response)
+            console.log(response.data )
         })
         model.universities = data;
         var viewModel = ko.viewmodel.fromModel(model, {

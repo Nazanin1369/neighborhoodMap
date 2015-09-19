@@ -67,7 +67,7 @@ var googleMapService = new (function() {
           position: new google.maps.LatLng(university.location.lat(), university.location.long()),
           animation: google.maps.Animation.DROP
       });
-      
+
       marker.setMap(map);
 
       self.bounceOnce(marker);
@@ -208,6 +208,10 @@ var googleMapService = new (function() {
        });
    };
 
+
+      /**
+       * @description InfoWindow content.
+       */
    self.createInfoWindowContent = function(university) {
         var uniRating;
         var content = `<div class="info-card-wide mdl-card mdl-shadow--2dp">
@@ -215,19 +219,21 @@ var googleMapService = new (function() {
                             <h2 class="mdl-card__title-text">@@name@@</h2>
                         </div>
                         <div class="mdl-card__supporting-text">
-                        <strong>Rating: @@uniRating@@</strong>
-                        <br/>
-                        <span>@@uniVicinity@@</span>
-                        <br/>
-                        <span></span>
-                        <br/>
-                        <span></span>
-                        <span class="pull-right"></span>
+                          <strong>Rating: @@uniRating@@</strong>
+                          <br/>
+                          <span>@@uniVicinity@@</span>
+                          <br/>
+                          <span class="pull-right"></span>
+                        </div>
+                        <div class="mdl-card__actions mdl-card--border">
+                           <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                             View Images
+                           </a>
                         </div>
                         <div class="mdl-card__menu">
-                        <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" onclick="googleMapService.getInfoWindow().close()">
-                        <i class="material-icons">clear</i>
-                        </button>
+                          <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" onclick="googleMapService.getInfoWindow().close()">
+                            <i class="material-icons">clear</i>
+                          </button>
                         </div></div>`;
 
         if(typeof university.rating == 'undefined'){
