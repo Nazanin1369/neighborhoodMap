@@ -41,3 +41,13 @@ body {
 .info-card-wide > .mdl-card__menu {
   color: #fff;
 }
+
+.pull-right {
+    cursor: pointer;
+    float: right !important;
+    img {
+      width: 30px;;
+      height: 30px;
+      margin-top: -40px;
+    }
+}

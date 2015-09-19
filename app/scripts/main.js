@@ -36,10 +36,17 @@ $(function() {
                         googleMapService.openInfoWindow(uni);
 
                     }
+                },
+                '{root}': function(root){
+                  root.searchText = ko.observable("");
                 }
             }
         });
-        console.log(viewModel);
+        console.log('vm: ', viewModel);
+
+        viewModel.searchText.subscribe(function(value) {
+           console.log(value);
+         })
 
         for(var i = 0; i < viewModel.universities().length; i++){
           googleMapService.createMarker(viewModel.universities()[i]);

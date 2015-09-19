@@ -2,6 +2,7 @@
   "name": "neighborhood-map",
   "private": true,
   "dependencies": {
+    "jquery": "latest",
     "knockout": "~3.3.0",
     "material-design-icons": "~2.0.0",
     "material-design-lite": "~1.0.4"

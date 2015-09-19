@@ -48,7 +48,8 @@ var googleMapService = new (function() {
     self.createMarker = function(university) {
         var marker = new google.maps.Marker({
             position: new google.maps.LatLng(university.location.lat(), university.location.long()),
-            animation: google.maps.Animation.DROP
+            animation: google.maps.Animation.DROP,
+            icon:  '../images/uni.png'
         });
 
         marker.setMap(map);
@@ -65,7 +66,8 @@ var googleMapService = new (function() {
     self.openInfoWindow = function(university){
       var marker = new google.maps.Marker({
           position: new google.maps.LatLng(university.location.lat(), university.location.long()),
-          animation: google.maps.Animation.DROP
+          animation: google.maps.Animation.DROP,
+          icon:  '../images/uni.png'
       });
 
       marker.setMap(map);
@@ -155,8 +157,7 @@ var googleMapService = new (function() {
      return new Promise(function(resolve, reject){
        function myCallBack(results, status) {
            if (status === google.maps.places.PlacesServiceStatus.OK) {
-             resolve(results)
-             console.log('results', results)
+             resolve(results);
            }
            reject(status);
        }
@@ -223,12 +224,9 @@ var googleMapService = new (function() {
                           <br/>
                           <span>@@uniVicinity@@</span>
                           <br/>
-                          <span class="pull-right"></span>
-                        </div>
-                        <div class="mdl-card__actions mdl-card--border">
-                           <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                             View Images
-                           </a>
+                          <span class="pull-right">
+                              <img src="../images/insta.png" class="insta-icon"/>
+                          </span>
                         </div>
                         <div class="mdl-card__menu">
                           <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" onclick="googleMapService.getInfoWindow().close()">

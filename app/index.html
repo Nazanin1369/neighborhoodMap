@@ -38,19 +38,19 @@
             </label>
             <div class="mdl-textfield__expandable-holder">
               <input class="mdl-textfield__input" type="text" name="sample"
-                     id="fixed-header-drawer-exp" />
+                     id="fixed-header-drawer-exp" data-bind="textInput: searchText  "/>
             </div>
           </div>
         </div>
       </header>
-      <div class="mdl-layout__drawer" >
+      <div class="mdl-layout__drawer">
         <header class="mdl-layout__header">
           <div class="mdl-layout__header-row">
             Universities
           </div>
         </header>
         <span class="mdl-layout-title"></span>
-        <nav class="mdl-navigation" data-bind="foreach: universities">
+        <nav class="mdl-navigation" data-bind="foreach: universities" >
           <a class="mdl-navigation__link" href="#" data-bind="text: name, click: showInfoWindow"></a>
         </nav>
       </div>
@@ -78,9 +78,8 @@
     <!-- bower:js -->
     <script src="/bower_components/jquery/dist/jquery.js"></script>
     <script src="/bower_components/knockout/dist/knockout.js"></script>
-    <script src="scripts/vendor/knockout.viewmodel.min.js"></script>
-    <script src="scripts/vendor/instafeed.min.js"></script>
     <script src="/bower_components/material-design-lite/material.min.js"></script>
+    <script src="scripts/vendor/knockout.viewmodel.min.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
