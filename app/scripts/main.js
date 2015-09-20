@@ -1,4 +1,7 @@
 //View model
+var viewModel = {}
+
+//Model
 var model = {
     universities: []
 };
@@ -11,6 +14,20 @@ var model = {
 function getInstaPics(count, hashtag) {
       var clientId = '85a5b3cd341344cebeea9a990a80b3ed';
 			return $.getJSON(`https://api.instagram.com/v1/tags/${hashtag}/media/recent?callback=?&client_id=${clientId}&count=${count}`);
+}
+
+/**
+* @name filterUniversities
+* @description filters universities in the view model based on the searchText value
+* @param universities view model universities
+* @param searchText input searchText
+*/
+
+function filterUniversities(universities, searchText){
+    return _.filter(universities,
+       function(uni){
+         return (uni.name().indexOf(searchText) > -1);
+       });
 }
 
 // App initialization
@@ -28,11 +45,10 @@ $(function() {
             console.log(response.data )
         })
         model.universities = data;
-        var viewModel = ko.viewmodel.fromModel(model, {
+        var viewmodel = ko.viewmodel.fromModel(model, {
             extend: {
                 '{root}.universities[i]': function(uni){
                     uni.showInfoWindow = function(){
-                        console.log('showing window: ', uni);
                         googleMapService.openInfoWindow(uni);
 
                     }
@@ -42,10 +58,23 @@ $(function() {
                 }
             }
         });
-        console.log('vm: ', viewModel);
-
-        viewModel.searchText.subscribe(function(value) {
+        console.log('vm: ', viewmodel);
+        viewModel = viewmodel;
+        viewmodel.searchText.subscribe(function(value) {
            console.log(value);
+           var filtered = filterUniversities(viewModel.universities(), value);
+           var updatedModel = { universities: function(){ return filtered } };
+           console.log(updatedModel)
+           ko.viewmodel.updateFromModel(viewmodel, updatedModel, true).onComplete(function () {
+             console.log(ko.viewmodel.toModel(updatedModel));
+           });
+           viewModel = updatedModel;
+
+           //update the viewmodel with new filtered list
+           /*var unis = viewmodel.universities();
+           for(var i = 0; i < unis.length; i++){
+             console.log('name: ', unis[i]);
+           }*/
          })
 
         for(var i = 0; i < viewModel.universities().length; i++){
