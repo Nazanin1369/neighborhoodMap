@@ -64,7 +64,17 @@ $(function() {
                         googleMapService.openInfoWindow(uni);
                     };
                     uni.getInstaPictures = function(){
-                      getInstaPics(10, uni.name());
+                      var instaName;
+                      var words = uni.name().split(/[\s,.]+/);
+                      if(words.length < 3){
+                          instaName = uni.name().replace(/[\s]+/g, '').toLowerCase();
+                      }else{
+                          instaName = (words[0] + ' ' + words[1] + ' ' + words[2]).replace(/\s+/g, '').toLowerCase();
+                      }
+                      getInstaPics(10, instaName).then(function(response){
+                        console.log(response.data)
+                        return response.data;
+                      })
                     };
                 },
                 '{root}': function(root){

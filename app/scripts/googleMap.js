@@ -225,8 +225,16 @@ var googleMapService = new (function() {
                           <span>@@uniVicinity@@</span>
                           <br/>
                           <span class="pull-right">
-                              <img src="../images/insta.png" class="insta-icon"/>
+                              <img src="../images/insta.png" class="insta-icon" data-bind="click: @@uniInsta@@"/>
                           </span>
+                        </div>
+                        <div class="mdl-card__actions mdl-card--border" style="background: url(@@instaImage@@)"">
+                        <div class="demo-card-image mdl-card mdl-shadow--2dp">
+                          <div class="mdl-card__title mdl-card--expand"></div>
+                          <div class="mdl-card__actions">
+                            <span class="demo-card-image__filename">Image.jpg</span>
+                          </div>
+                          </div>
                         </div>
                         <div class="mdl-card__menu">
                           <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" onclick="googleMapService.getInfoWindow().close()">
@@ -239,9 +247,13 @@ var googleMapService = new (function() {
         } else {
             uniRating = university.rating();
         }
+        console.log('uni', university)
         content = content.replace('@@name@@', university.name());
         content = content.replace('@@uniRating@@', uniRating);
         content = content.replace('@@uniVicinity@@', university.vicinity());
+        content = content.replace('@@uniInsta@@', university.getInstaPictures());
+        var ins = university.getInstaPictures();
+        content = content.replace('@@uniInsta@@', ins[0].images.standard_resolution.url);
 
         return content;
     };
