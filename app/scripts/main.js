@@ -1,5 +1,3 @@
-//View model
-var viewModel = {}
 
 //Model
 var model = {
@@ -24,10 +22,24 @@ function getInstaPics(count, hashtag) {
 */
 
 function filterUniversities(universities, searchText){
+  console.log('searchText', searchText);
+    if(searchText == ''){
+      return model.vmUniversities;
+    }
     return _.filter(universities,
        function(uni){
          return (uni.name().indexOf(searchText) > -1);
        });
+}
+/**
+* @name initializeMarkers
+* @description It draws map markers based on the viewmodel universities
+*/
+function initializeMarkers(vm){
+  googleMapService.clearMarkers();
+  for(var i = 0; i < vm.universities().length; i++){
+    googleMapService.getMarkers().push(googleMapService.createMarker(vm.universities()[i]));
+  }
 }
 
 // App initialization
@@ -58,30 +70,29 @@ $(function() {
                 }
             }
         });
-        console.log('vm: ', viewmodel);
-        viewModel = viewmodel;
+        //for resetting the markers on empty search text we need this
+        model.vmUniversities = viewmodel.universities();
         viewmodel.searchText.subscribe(function(value) {
            console.log(value);
-           var filtered = filterUniversities(viewModel.universities(), value);
+           var filtered = filterUniversities(viewmodel.universities(), value);
+
+           //TESTING
+           for(var i = 0; i < filtered.length; i++){
+             console.log('name: ', filtered[i].name());
+           }
            var updatedModel = { universities: function(){ return filtered } };
-           console.log(updatedModel)
+
            ko.viewmodel.updateFromModel(viewmodel, updatedModel, true).onComplete(function () {
-             console.log(ko.viewmodel.toModel(updatedModel));
+             var m = ko.viewmodel.toModel(updatedModel)
            });
-           viewModel = updatedModel;
+           viewmodel = updatedModel;
+           initializeMarkers(viewmodel);
 
-           //update the viewmodel with new filtered list
-           /*var unis = viewmodel.universities();
-           for(var i = 0; i < unis.length; i++){
-             console.log('name: ', unis[i]);
-           }*/
-         })
+         });
 
-        for(var i = 0; i < viewModel.universities().length; i++){
-          googleMapService.createMarker(viewModel.universities()[i]);
-        }
 
-       ko.applyBindings(viewModel);
+       initializeMarkers(viewmodel);
+       ko.applyBindings(viewmodel);
        googleMapService.initializeInfoWindow();
     })
     .catch(function(reason){
