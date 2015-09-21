@@ -53,9 +53,9 @@ $(function() {
         for(var i = 0; i < data.length; i++){
             data[i].location = {'lat': data[i].geometry.location.H, 'long': data[i].geometry.location.L};
         }
-        getInstaPics(10, 'standford').then(function(response){
+        /*getInstaPics(10, 'standford').then(function(response){
             console.log(response.data )
-        })
+        })*/
         model.universities = data;
         var viewmodel = ko.viewmodel.fromModel(model, {
             extend: {
@@ -88,9 +88,7 @@ $(function() {
            viewmodel = updatedModel;
            initializeMarkers(viewmodel);
 
-         });
-
-
+       });
        initializeMarkers(viewmodel);
        ko.applyBindings(viewmodel);
        googleMapService.initializeInfoWindow();

@@ -51,3 +51,12 @@ body {
       margin-top: -40px;
     }
 }
+
+.mdl-layout__drawer {
+  top: 64px;
+}
+
+.mdl-layout--fixed-drawer:not(.is-small-screen)>.mdl-layout__header{
+    margin: 0;
+    width: 100%;
+}
