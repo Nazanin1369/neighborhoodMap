@@ -8,3 +8,6 @@ including: map markers to identify popular locations or places you’d like to v
 a search function to easily discover these locations, and a listview to support simple browsing of all locations. 
 You will then research and implement third-party APIs that provide additional information about each of 
 these locations (such as StreetView images, Wikipedia articles, Yelp reviews, etc).
+
+
+### Live view
