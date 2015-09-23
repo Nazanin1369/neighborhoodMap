@@ -12,7 +12,16 @@ var model = {
 */
 function getInstaPics(count, hashtag) {
       var clientId = '85a5b3cd341344cebeea9a990a80b3ed';
-			return $.getJSON(`https://api.instagram.com/v1/tags/${hashtag}/media/recent?callback=?&client_id=${clientId}&count=${count}`);
+			return new Promise(function(resolve, reject){
+        $.getJSON(`https://api.instagram.com/v1/tags/${hashtag}/media/recent?callback=?&client_id=${clientId}&count=${count}`).then(function(response){
+          if(response.meta.code != '200'){
+            reject(response.status);
+            console.log('Could not get images from Instagram API.');
+          }else{
+            resolve(response.data);
+          }
+        });
+      })
 }
 
 /**
@@ -39,7 +48,7 @@ function filterUniversities(universities, searchText) {
 function initializeMarkers(vm) {
   googleMapService.clearMarkers();
   for(var i = 0; i < vm.universities().length; i++){
-    googleMapService.getMarkers().push(googleMapService.createMarker(vm.universities()[i]));
+    googleMapService.getMarkers().push(googleMapService.createMarker(vm.universities()[i], vm));
   }
 }
 
@@ -53,6 +62,7 @@ $(function() {
 
         _.each(data, function(uni){
             uni.location = {'lat': uni.geometry.location.H, 'long': uni.geometry.location.L};
+
         });
 
         model.universities = data;
@@ -63,22 +73,35 @@ $(function() {
                     uni.showInfoWindow = function(){
                         googleMapService.openInfoWindow(uni);
                     };
-                    uni.getInstaPictures = function(){
-                      var instaName;
-                      var words = uni.name().split(/[\s,.]+/);
-                      if(words.length < 3){
-                          instaName = uni.name().replace(/[\s]+/g, '').toLowerCase();
-                      }else{
-                          instaName = (words[0] + ' ' + words[1] + ' ' + words[2]).replace(/\s+/g, '').toLowerCase();
-                      }
-                      getInstaPics(10, instaName).then(function(response){
-                        console.log(response.data)
-                        return response.data;
-                      })
-                    };
+                    uni.getInstaPics = function(){
+
+                    }
                 },
                 '{root}': function(root){
                   root.searchText = ko.observable("");
+                  root.instagramPictures = ko.observableArray([
+                    { id : 1111}
+                  ]);
+                  root.loadPics = function(name){
+                    console.log('loading pics...' + name);
+                    var instaName;
+                    var words = name.split(/[\s,.]+/);
+                    if(words.length < 3){
+                        instaName = name.replace(/[\s]+/g, '').toLowerCase();
+                    }else{
+                        instaName = (words[0] + ' ' + words[1] + ' ' + words[2]).replace(/\s+/g, '').toLowerCase();
+                    }
+                    getInstaPics(10, instaName).then(function(data){
+                      console.log("here is", data);
+                      _.map(data, function(x) {
+                        x.picUrl = x.images.low_resolution.url;
+                            root.instagramPictures.push(x);
+                      });
+                    })
+                    .catch(function(reason){
+                        console.log(reason);
+                    });
+                  }
                 }
             }
         });

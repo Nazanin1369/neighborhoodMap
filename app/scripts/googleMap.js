@@ -45,7 +45,7 @@ var googleMapService = new (function() {
      * It added a marker in the map.
      * @param  {Event} Event linked to the marker.
      */
-    self.createMarker = function(university) {
+    self.createMarker = function(university, vm) {
         var marker = new google.maps.Marker({
             position: new google.maps.LatLng(university.location.lat(), university.location.long()),
             animation: google.maps.Animation.DROP,
@@ -58,6 +58,7 @@ var googleMapService = new (function() {
             self.bounceOnce(this);
             infoWindow.setContent(self.createInfoWindowContent(university));
             infoWindow.open(map, this);
+            ko.applyBindings(vm, $(".info-popup")[0]);
         });
 
         return marker;
@@ -215,24 +216,29 @@ var googleMapService = new (function() {
        */
    self.createInfoWindowContent = function(university) {
         var uniRating;
-        var content = `<div class="info-card-wide mdl-card mdl-shadow--2dp">
+        if(typeof university.rating == 'undefined'){
+            uniRating = 'no rating';
+        } else {
+            uniRating = university.rating();
+        }
+        var content = `<div class="info-card-wide mdl-card mdl-shadow--2dp info-popup">
                         <div class="mdl-card__title">
-                            <h2 class="mdl-card__title-text">@@name@@</h2>
+                            <h2 class="mdl-card__title-text">${university.name()}</h2>
                         </div>
                         <div class="mdl-card__supporting-text">
-                          <strong>Rating: @@uniRating@@</strong>
+                          <strong>Rating: ${uniRating}</strong>
                           <br/>
-                          <span>@@uniVicinity@@</span>
+                          <span>${university.vicinity()}</span>
                           <br/>
                           <span class="pull-right">
-                              <img src="../images/insta.png" class="insta-icon" data-bind="click: @@uniInsta@@"/>
+                              <img src="../images/insta.png" class="insta-icon" data-bind="click: loadPics('${university.name()}')"/>
                           </span>
                         </div>
-                        <div class="mdl-card__actions mdl-card--border" style="background: url(@@instaImage@@)"">
-                        <div class="demo-card-image mdl-card mdl-shadow--2dp">
+                        <div class="mdl-card__actions mdl-card--border" style="background: url(@@instaImage@@)">
+                        <div class="demo-card-image mdl-card mdl-shadow--2dp" data-bind="foreach: instagramPictures" >
                           <div class="mdl-card__title mdl-card--expand"></div>
                           <div class="mdl-card__actions">
-                            <span class="demo-card-image__filename">Image.jpg</span>
+                            <span class="demo-card-image__filename" data-bind="text: id"></span>
                           </div>
                           </div>
                         </div>
@@ -242,20 +248,8 @@ var googleMapService = new (function() {
                           </button>
                         </div></div>`;
 
-        if(typeof university.rating == 'undefined'){
-            uniRating = 'no rating';
-        } else {
-            uniRating = university.rating();
-        }
-        console.log('uni', university)
-        content = content.replace('@@name@@', university.name());
-        content = content.replace('@@uniRating@@', uniRating);
-        content = content.replace('@@uniVicinity@@', university.vicinity());
-        content = content.replace('@@uniInsta@@', university.getInstaPictures());
-        var ins = university.getInstaPictures();
-        content = content.replace('@@uniInsta@@', ins[0].images.standard_resolution.url);
-
         return content;
+
     };
 
 
