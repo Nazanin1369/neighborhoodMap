@@ -84,7 +84,6 @@ var googleMapService = new (function() {
      * It fits the map bounds to the markers in the map.
      */
     self.fitBounds = function() {
-        // Source --> http://stackoverflow.com/questions/15299113/google-maps-v3-fitbounds-on-visible-markers
         var bounds = new google.maps.LatLngBounds();
 
         if (markers.length > 0) {
