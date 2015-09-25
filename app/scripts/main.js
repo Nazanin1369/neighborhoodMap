@@ -80,12 +80,11 @@ $(function() {
                 '{root}': function(root){
                   root.searchText = ko.observable("");
                   root.instagramPictures = ko.observableArray([
-                    { id : 1111}
+                    { link :  ko.observable(''),
+                      txt:  ko.observable('')}
                   ]);
                   root.loadPics = function(name){
-                    console.log('loading pics...' + name);
-                    var instaName;
-                    var words = name.split(/[\s,.]+/);
+                    var instaName, words = name.split(/[\s,.]+/);
                     if(words.length < 3){
                         instaName = name.replace(/[\s]+/g, '').toLowerCase();
                     }else{
@@ -94,8 +93,9 @@ $(function() {
                     getInstaPics(10, instaName).then(function(data){
                       console.log("here is", data);
                       _.map(data, function(x) {
-                        x.picUrl = x.images.low_resolution.url;
-                            root.instagramPictures.push(x);
+                          x.picUrl = ko.observable(x.images.thumbnail.url);
+                          x.txt = ko.observable(x.caption.text);
+                          root.instagramPictures.push(x);
                       });
                     })
                     .catch(function(reason){

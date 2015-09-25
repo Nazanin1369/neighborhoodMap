@@ -41,6 +41,11 @@ body {
 .info-card-wide > .mdl-card__menu {
   color: #fff;
 }
+.info-card-image.mdl-card {
+  width: 200px;
+  height: 56px;
+  //background: url('../assets/demos/image_card.jpg') center / cover;
+}
 
 .pull-right {
     cursor: pointer;
@@ -60,3 +65,5 @@ body {
     margin: 0;
     width: 100%;
 }
+
+.infoPics > div:first-of-type { display:none; }
