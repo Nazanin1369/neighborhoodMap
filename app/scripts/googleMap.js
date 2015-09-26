@@ -79,7 +79,7 @@ var googleMapService = new (function() {
       vm.loadPics(university.name());
       infoWindow.open(map, marker);
       ko.applyBindings(vm, $(".info-popup")[0]);
-      
+
       return marker;
     }
 
@@ -170,7 +170,8 @@ var googleMapService = new (function() {
 
 
    /**
-    * InfoWindow initialization.
+    * @name initializeInfoWindow
+    * @description InfoWindow initialization.
     */
    self.initializeInfoWindow = function() {
        // Initialize the InfoWindow
@@ -213,9 +214,11 @@ var googleMapService = new (function() {
    };
 
 
-      /**
-       * @description InfoWindow content.
-       */
+  /**
+   * @name createInfoWindowContent
+   * @description creates google map infoWindow content.
+   * @param {Object} university object
+   */
    self.createInfoWindowContent = function(university) {
         var uniRating;
         if(typeof university.rating == 'undefined'){
@@ -248,6 +251,9 @@ var googleMapService = new (function() {
                             </div>
                           </div>
                         </div>
+                        <div class="mdl-card__actions mdl-card--border" data-bind="visible: errors().length > 0">
+                            <p data-bind="text: errors"></p>
+                        </div>
 
                         <div class="mdl-card__menu">
                           <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" onclick="googleMapService.getInfoWindow().close()">
@@ -257,9 +263,5 @@ var googleMapService = new (function() {
 
         return content;
     };
-
-
-
-
 
 });
