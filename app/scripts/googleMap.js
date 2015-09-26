@@ -57,7 +57,9 @@ var googleMapService = new (function() {
         google.maps.event.addListener(marker, 'click', function() {
             self.bounceOnce(this);
             infoWindow.setContent(self.createInfoWindowContent(university));
+            vm.loadPics(university.name());
             infoWindow.open(map, this);
+
             ko.applyBindings(vm, $(".info-popup")[0]);
         });
 
@@ -230,14 +232,14 @@ var googleMapService = new (function() {
                           <span>${university.vicinity()}</span>
                           <br/>
                           <span class="pull-right">
-                              <img src="../images/insta.png" class="insta-icon" data-bind="click: loadPics('${university.name()}')"/>
+                              <img src="../images/insta.png" class="insta-icon"/>
                           </span>
                         </div>
-                        <div class="mdl-card__actions mdl-card--border" data-bind="visible: shouldShowPictures">
+                        <div class="mdl-card__actions mdl-card--border">
                           <div class="row infoPics" data-bind="foreach: instagramPictures">
                             <div class="col-xs-6 col-md-3" style="width: 250px; height: 300px;">
-                              <a href="#" class="thumbnail">
-                                <img data-bind="attr: {src: $data.picUrl}">
+                              <a data-bind="attr: {href: $data.link}" target="_blank" class="thumbnail">
+                                <img data-bind="attr: {src: $data.picUrl, href: $data.link}">
                                 <div class="caption">
                                    <h6 data-bind="text: txt"></h6>
                                 </div>
@@ -253,7 +255,6 @@ var googleMapService = new (function() {
                         </div></div>`;
 
         return content;
-
     };
 
 

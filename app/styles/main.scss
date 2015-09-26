@@ -44,7 +44,6 @@ body {
 .info-card-image.mdl-card {
   width: 200px;
   height: 56px;
-  //background: url('../assets/demos/image_card.jpg') center / cover;
 }
 
 .pull-right {
@@ -61,9 +60,13 @@ body {
   top: 64px;
 }
 
-.mdl-layout--fixed-drawer:not(.is-small-screen)>.mdl-layout__header{
+.mdl-layout--fixed-drawer:not(.is-small-screen)>.mdl-layout__header {
     margin: 0;
     width: 100%;
 }
 
 .infoPics > div:first-of-type { display:none; }
+
+.gm-style-iw {
+  max-height: 500px;
+}
