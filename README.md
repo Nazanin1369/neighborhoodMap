@@ -11,3 +11,4 @@ these locations (such as StreetView images, Wikipedia articles, Yelp reviews, et
 
 
 ### Live view
+You can view the live project [here](http://nazanin1369.github.io/neighborhoodMap/dist/)
