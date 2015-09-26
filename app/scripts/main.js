@@ -1,7 +1,8 @@
 
 //Model
 var model = {
-    universities: []
+    universities: [],
+    shouldShowPictures: ko.observable(false)
 };
 
 /**
@@ -90,12 +91,16 @@ $(function() {
                     }else{
                         instaName = (words[0] + ' ' + words[1] + ' ' + words[2]).replace(/\s+/g, '').toLowerCase();
                     }
+                    console.log('before: ', root.shouldShowPictures)
+                    root.shouldShowPictures = !root.shouldShowPictures;
+                    console.log('after: ', root.shouldShowPictures)
                     getInstaPics(10, instaName).then(function(data){
                       console.log("here is", data);
                       _.map(data, function(x) {
                           x.picUrl = ko.observable(x.images.thumbnail.url);
                           x.txt = ko.observable(x.caption.text);
                           root.instagramPictures.push(x);
+
                       });
                     })
                     .catch(function(reason){

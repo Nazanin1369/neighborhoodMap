@@ -233,15 +233,16 @@ var googleMapService = new (function() {
                               <img src="../images/insta.png" class="insta-icon" data-bind="click: loadPics('${university.name()}')"/>
                           </span>
                         </div>
-
-                        <div class="row infoPics" data-bind="foreach: instagramPictures">
-                          <div class="col-xs-6 col-md-3" style="width: 250px; height: 300px; margin-left:20px;">
-                            <a href="#" class="thumbnail">
-                              <img data-bind="attr: {src: $data.picUrl}">
-                              <div class="caption">
-                                 <h6 data-bind="text: txt"></h6>
-                              </div>
-                            </a>
+                        <div class="mdl-card__actions mdl-card--border" data-bind="visible: shouldShowPictures">
+                          <div class="row infoPics" data-bind="foreach: instagramPictures">
+                            <div class="col-xs-6 col-md-3" style="width: 250px; height: 300px;">
+                              <a href="#" class="thumbnail">
+                                <img data-bind="attr: {src: $data.picUrl}">
+                                <div class="caption">
+                                   <h6 data-bind="text: txt"></h6>
+                                </div>
+                              </a>
+                            </div>
                           </div>
                         </div>
 
