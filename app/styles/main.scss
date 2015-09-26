@@ -47,7 +47,6 @@ body {
 }
 
 .pull-right {
-    cursor: pointer;
     float: right !important;
     img {
       width: 30px;;
@@ -68,5 +67,5 @@ body {
 .infoPics > div:first-of-type { display:none; }
 
 .gm-style-iw {
-  max-height: 500px;
+  height: 500px;
 }
