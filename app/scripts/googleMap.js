@@ -59,14 +59,13 @@ var googleMapService = new (function() {
             infoWindow.setContent(self.createInfoWindowContent(university));
             vm.loadPics(university.name());
             infoWindow.open(map, this);
-
             ko.applyBindings(vm, $(".info-popup")[0]);
         });
 
         return marker;
     };
 
-    self.openInfoWindow = function(university){
+    self.openInfoWindow = function(university, vm){
       var marker = new google.maps.Marker({
           position: new google.maps.LatLng(university.location.lat(), university.location.long()),
           animation: google.maps.Animation.DROP,
@@ -77,8 +76,10 @@ var googleMapService = new (function() {
 
       self.bounceOnce(marker);
       infoWindow.setContent(self.createInfoWindowContent(university));
+      vm.loadPics(university.name());
       infoWindow.open(map, marker);
-
+      ko.applyBindings(vm, $(".info-popup")[0]);
+      
       return marker;
     }
 
@@ -241,7 +242,7 @@ var googleMapService = new (function() {
                               <a data-bind="attr: {href: $data.link}" target="_blank" class="thumbnail">
                                 <img data-bind="attr: {src: $data.picUrl, href: $data.link}">
                                 <div class="caption">
-                                   <h6 data-bind="text: txt"></h6>
+                                   <p data-bind="text: txt"></p>
                                 </div>
                               </a>
                             </div>

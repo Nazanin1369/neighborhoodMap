@@ -69,13 +69,10 @@ $(function() {
 
         var viewmodel = ko.viewmodel.fromModel(model, {
             extend: {
-                '{root}.universities[i]': function(uni){
+                '{root}.universities[i]': function(uni, root){
                     uni.showInfoWindow = function(){
-                        googleMapService.openInfoWindow(uni);
+                        googleMapService.openInfoWindow(uni, viewmodel);
                     };
-                    uni.getInstaPics = function(){
-
-                    }
                 },
                 '{root}': function(root){
                   root.searchText = ko.observable("");

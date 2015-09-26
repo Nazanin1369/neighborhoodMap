@@ -67,5 +67,17 @@ body {
 .infoPics > div:first-of-type { display:none; }
 
 .gm-style-iw {
-  height: 500px;
+  height: 500px!important;
+  width: 500px!important;
+}
+
+.thumbnail .caption {
+    max-height: 100px;
+    overflow: auto;
+    p {
+        text-align: center;
+        font-style: italic;
+        font-size: smaller;
+        text-indent: 0;
+    }
 }
