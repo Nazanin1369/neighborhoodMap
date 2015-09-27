@@ -116,6 +116,7 @@ $(function() {
        googleMapService.initializeInfoWindow();
     })
     .catch(function(reason){
+        console.log(reason);
         alert('Cannot connect to googleMap API service, Please try again!')
     });
 });
