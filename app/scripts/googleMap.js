@@ -54,13 +54,17 @@ var googleMapService = new (function() {
 
         marker.setMap(map);
 
-        google.maps.event.addListener(marker, 'click', function() {
+        function openMarker() {
             self.bounceOnce(this);
             infoWindow.setContent(self.createInfoWindowContent(university));
             vm.loadPics(university.name());
             infoWindow.open(map, this);
             ko.applyBindings(vm, $(".info-popup")[0]);
-        });
+        }
+
+        google.maps.event.addListener(marker, 'click', openMarker);
+
+        google.maps.event.addListener(marker, 'mousedown', openMarker);
 
         return marker;
     };
@@ -239,7 +243,7 @@ var googleMapService = new (function() {
                               <img src="../images/insta.png" class="insta-icon"/>
                           </span>
                         </div>
-                        <div class="mdl-card__actions mdl-card--border">
+                        <div class="mdl-card__actions mdl-card--border" style="height:350px; overflow-y:scroll;overflow-x: hidden;width: 501px;">
                           <div class="row infoPics" data-bind="foreach: instagramPictures">
                             <div class="col-xs-6 col-md-3" style="width: 250px; height: 300px;">
                               <a data-bind="attr: {href: $data.link}" target="_blank" class="thumbnail">
