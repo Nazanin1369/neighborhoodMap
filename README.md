@@ -27,7 +27,7 @@ Pictures provided by Instagram API.
 
 
 #### Live view
-You can view the live project [here](http://nazanin1369.github.io/neighborhoodMap/dist/)
+You can view the live project [here](http://nazanin1369.github.io/neighborhoodMap)
 
 #### Frameworks, APIs and Libraries
 
