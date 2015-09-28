@@ -240,7 +240,7 @@ var googleMapService = new (function() {
                           <span>${university.vicinity()}</span>
                           <br/>
                           <span class="pull-right">
-                              <img src="../images/insta.png" class="insta-icon"/>
+                              <img src="images/insta.png" class="insta-icon"/>
                           </span>
                         </div>
                         <div class="mdl-card__actions mdl-card--border" style="height:350px; overflow-y:scroll;overflow-x: hidden;">
