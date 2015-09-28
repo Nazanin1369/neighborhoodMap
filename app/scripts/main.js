@@ -55,7 +55,7 @@ function initializeMarkers(vm) {
 // App initialization
 $(function() {
     'use strict';
-    
+
     googleMapService.initializeMap();
     googleMapService.fitBounds();
     googleMapService.getData().then(function(data){

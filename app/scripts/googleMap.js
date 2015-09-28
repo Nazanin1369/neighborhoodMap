@@ -243,9 +243,9 @@ var googleMapService = new (function() {
                               <img src="../images/insta.png" class="insta-icon"/>
                           </span>
                         </div>
-                        <div class="mdl-card__actions mdl-card--border" style="height:350px; overflow-y:scroll;overflow-x: hidden;width: 501px;">
+                        <div class="mdl-card__actions mdl-card--border" style="height:350px; overflow-y:scroll;overflow-x: hidden;">
                           <div class="row infoPics" data-bind="foreach: instagramPictures">
-                            <div class="col-xs-6 col-md-3" style="width: 250px; height: 300px;">
+                            <div class="col-xs-6 col-md-3" style="width: 50%; height: 300px;">
                               <a data-bind="attr: {href: $data.link}" target="_blank" class="thumbnail">
                                 <img data-bind="attr: {src: $data.picUrl, href: $data.link}">
                                 <div class="caption">

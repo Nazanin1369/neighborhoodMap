@@ -25,7 +25,7 @@ body {
 }
 
 .info-card-wide.mdl-card {
-  width: 512px;
+  width: 100%;
 }
 .info-card-wide > .mdl-card__title {
   color: #fff;
@@ -56,7 +56,7 @@ body {
 }
 
 .mdl-layout__drawer {
-  top: 64px;
+  top: 56px;
 }
 
 .mdl-layout--fixed-drawer:not(.is-small-screen)>.mdl-layout__header {
@@ -84,3 +84,15 @@ body {
         padding: 10px;
     }
 }
+
+@media screen and (max-width: 1024px){
+    .mdl-layout__header {
+        display: flex!important;
+    }
+    .mdl-layout__drawer {
+        top: 56px;
+        width: 180px;
+    }
+
+}
+
