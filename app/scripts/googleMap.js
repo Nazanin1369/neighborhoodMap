@@ -49,7 +49,7 @@ var googleMapService = new (function() {
         var marker = new google.maps.Marker({
             position: new google.maps.LatLng(university.location.lat(), university.location.long()),
             animation: google.maps.Animation.DROP,
-            icon:  '../images/uni.png'
+            icon:  'images/uni.png'
         });
 
         marker.setMap(map);
