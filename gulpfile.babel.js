@@ -132,6 +132,10 @@ gulp.task('serve:dist', () => {
     '.tmp/fonts/**/*'
   ]).on('change',  () => {
     gulpSequence('build', reload);
+
+    gulp.watch('app/styles/**/*.scss', ['styles']);
+    gulp.watch('app/fonts/**/*', ['fonts']);
+    gulp.watch('bower.json', ['wiredep', 'fonts']);
   });
 });
 

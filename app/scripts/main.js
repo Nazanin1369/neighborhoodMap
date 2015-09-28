@@ -91,6 +91,7 @@ $(function() {
                     }
                     getInstaPics(10, instaName).then(function(data){
                       (root.instagramPictures().length > 1) && (root.instagramPictures.removeAll());
+                      console.log(instaName, data);
                       _.map(data, function(x) {
                           x.picUrl = ko.observable(x.images.thumbnail.url);
                           x.txt = ko.observable(x.caption.text);
