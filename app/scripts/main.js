@@ -55,7 +55,7 @@ function initializeMarkers(vm) {
 // App initialization
 $(function() {
     'use strict';
-    
+
     googleMapService.initializeMap();
     googleMapService.fitBounds();
     googleMapService.getData().then(function(data){
@@ -91,6 +91,7 @@ $(function() {
                     }
                     getInstaPics(10, instaName).then(function(data){
                       (root.instagramPictures().length > 1) && (root.instagramPictures.removeAll());
+                      console.log(instaName, data);
                       _.map(data, function(x) {
                           x.picUrl = ko.observable(x.images.thumbnail.url);
                           x.txt = ko.observable(x.caption.text);
@@ -116,6 +117,7 @@ $(function() {
        googleMapService.initializeInfoWindow();
     })
     .catch(function(reason){
+        console.log(reason);
         alert('Cannot connect to googleMap API service, Please try again!')
     });
 });

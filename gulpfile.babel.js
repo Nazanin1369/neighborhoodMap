@@ -51,7 +51,7 @@ gulp.task('html', ['styles'], () => {
     .pipe(assets)
     .pipe($.if('*.js', babel()))
     .pipe($.if('*.js', $.uglify()))
-    .pipe($.if('*.css', $.minifyCss({compatibility: '*'})))
+    //.pipe($.if('*.css', $.minifyCss({compatibility: '*'})))
     .pipe(assets.restore())
     .pipe($.useref())
     .pipe($.if('*.html', $.minifyHtml({conditionals: true, loose: true})))
@@ -132,6 +132,10 @@ gulp.task('serve:dist', () => {
     '.tmp/fonts/**/*'
   ]).on('change',  () => {
     gulpSequence('build', reload);
+
+    gulp.watch('app/styles/**/*.scss', ['styles']);
+    gulp.watch('app/fonts/**/*', ['fonts']);
+    gulp.watch('bower.json', ['wiredep', 'fonts']);
   });
 });
 
